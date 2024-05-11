@@ -4,8 +4,8 @@
 This Rust project scrapes Yahoo Finance website to fetch real-time stock prices and displays them in the terminal.
 
 ## Preview
-![terminal](./static/tss.png)
 ![yf](./static/yfss.png)
+![terminal](./static/tss.png)
 
 ## Installation
 1. Make sure you have Rust installed. If not, you can download it from [rust-lang.org](https://www.rust-lang.org/).
