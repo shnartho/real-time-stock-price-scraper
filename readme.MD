@@ -1,7 +1,7 @@
 # Real-Time Stock Price Scraper
 
 ## Description
-This Rust project scrapes Yahoo Finance website to fetch real-time stock prices and displays them in the terminal.
+This Rust project is a high-performance and powerful real-time stock price scraper. It concurrently scrapes multiple endpoints to fetch real-time stock prices from various sources and displays them in the terminal.
 
 ## Preview
 ![yf](./static/yfss.png)
