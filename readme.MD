@@ -5,6 +5,8 @@ This Rust project scrapes Yahoo Finance website to fetch real-time stock prices 
 
 ## Preview
 ![yf](./static/yfss.png)
+![yf1](./static/yfs1.png)
+![yf2](./static/yfs2.png)
 ![terminal](./static/tss.png)
 
 ## Installation

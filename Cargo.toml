@@ -10,3 +10,5 @@ flate2 = "1"
 plotters = "0.3"
 gnuplot = "0.0.43"
 chrono = "0.4"
+serde = { version = "1.0", features = ["derive"] }
+serde_yaml = "0.8"

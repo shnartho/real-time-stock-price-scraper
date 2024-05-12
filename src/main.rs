@@ -1,61 +1,38 @@
-use std::thread;
-use std::time::Duration;
+mod fetch;
 
-use reqwest;
-use scraper::{Html, Selector};
-use flate2::read::GzDecoder;
-use std::io::Read;
-use chrono::Local;
+use std::thread::{self};
+use serde::Deserialize;
+use std::env::{self};
+use std::fs;
+use fetch::fetch_price;
+
+#[derive(Debug, Deserialize)]
+struct Config {
+    urls: Vec<String>,
+}
 
 fn main() {
-    let url = "https://finance.yahoo.com/quote/BTC-USD";
+    let current_dir = env::current_dir().expect("Failed to get current directory");
+    let config_path = current_dir.join("env/config.yml");
 
-    loop {
-        match reqwest::blocking::get(url) {
-            Ok(response) => {
-                match response.headers().get("content-encoding") {
-                    Some(encoding) if encoding == "gzip" => {
-                        let mut decoder = GzDecoder::new(response);
-                        let mut decompressed_data = String::new();
-                        decoder.read_to_string(&mut decompressed_data).unwrap();
+    if !config_path.exists() {
+        eprint!("Config file not found: {:?}", config_path);
+        return;
+    }
 
-                        let document = Html::parse_document(&decompressed_data);
+    let config_file = fs::read_to_string(config_path).expect("Failed to read config.yml");
+    let config: Config = serde_yaml::from_str(&config_file).expect("Failed to parse config.yml");
 
-                        let price_selector = Selector::parse("fin-streamer[data-field=\"regularMarketPrice\"]").unwrap();
-                        let price_element = document.select(&price_selector).next();
+    let mut handles = vec![];
 
-                        match price_element {
-                            Some(element) => {
-                                let price = element.value().attr("data-value").unwrap_or_else(|| {
-                                    println!("Price element found, but 'data-value' attribute is missing!");
-                                    "" 
-                                }); 
-                                let current_time = Local::now();
-                                println!("{}: BTC-USD price {}$", current_time, price);
-                            }
-                            None => {
-                                println!("Failed to find price element on the page.");
-                                let snippet: String = decompressed_data.chars().take(500).collect();
-                                println!("HTML Snippet:\n{}", snippet); 
-                            }
-                        }
+    for url in config.urls {
+        let handle = thread::spawn(move || {
+            fetch_price(&url);
+        });
+        handles.push(handle);
+    }
 
-                    },
-                    _ => {
-                        // Handle responses that are not gzip encoded (or encoding header is missing)
-                        println!("Response is not gzip encoded or encoding header is missing.");
-                        match response.text() {
-                            Ok(text) => {
-                                println!("{}", text)
-                            },
-                            Err(e) => println!("Error getting response text: {}", e),
-                        }
-                    }
-                }                
-            }
-            Err(e) => println!("Error making request: {}", e),
-        }
-
-        thread::sleep(Duration::from_secs(1));
+    for handle in handles {
+        handle.join().unwrap();
     }
 }

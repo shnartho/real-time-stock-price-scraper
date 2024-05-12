@@ -1,0 +1,12 @@
+urls:
+  - "https://finance.yahoo.com/quote/BTC-USD"
+  - "https://finance.yahoo.com/quote/ETH-USD"
+  - "https://finance.yahoo.com/quote/QS"
+  - "https://finance.yahoo.com/quote/AAPL"
+  - "https://finance.yahoo.com/quote/GOOG"
+  - "https://finance.yahoo.com/quote/TSLA"
+  - "https://finance.yahoo.com/quote/SOL-USD"
+  - "https://finance.yahoo.com/quote/QCOM"
+  - "https://finance.yahoo.com/quote/NVDA"
+  - "https://finance.yahoo.com/quote/AMZN"
+  - "https://finance.yahoo.com/quote/GC%3DF"
