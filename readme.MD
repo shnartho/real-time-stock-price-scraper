@@ -6,7 +6,6 @@ This Rust project is a high-performance and powerful real-time stock price scrap
 ## Preview
 ![p1](./static/p1.png)
 ![yf](./static/yfss.png)
-![yf1](./static/yfs1.png)
 ![terminal](./static/tss.png)
 
 ## Installation
