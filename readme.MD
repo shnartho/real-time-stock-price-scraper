@@ -4,9 +4,9 @@
 This Rust project is a high-performance and powerful real-time stock price scraper. It concurrently scrapes multiple endpoints to fetch real-time stock prices from various sources and displays them in the terminal.
 
 ## Preview
+![p1](./static/p1.png)
 ![yf](./static/yfss.png)
 ![yf1](./static/yfs1.png)
-![yf2](./static/yfs2.png)
 ![terminal](./static/tss.png)
 
 ## Installation
